@@ -1,0 +1,304 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+::selection {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Ubuntu Sans", sans-serif;
+  color: #333;
+  font-size: 1.8rem;
+  background-color: #eee;
+}
+
+.heading-1 {
+  max-width: 80%;
+  font-size: 8rem;
+  letter-spacing: 1px;
+  text-align: center;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.heading-2 {
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+.heading-3 {
+  font-size: 2rem;
+}
+
+.header {
+  padding: 0 4rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav p {
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 2rem;
+}
+
+.logo {
+  height: 8rem;
+}
+
+.log-in {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.log-in .input {
+  width: 12rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.8rem;
+  padding: 2rem 1rem;
+  border-radius: 100px;
+  border: none;
+  outline: none;
+  transition: box-shadow 0.3s;
+}
+
+.log-in .input:focus {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit {
+  font-size: 2.8rem;
+  border: none;
+  margin-left: 1rem;
+  cursor: pointer;
+  color: #444;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.btn-submit:hover {
+  color: #000;
+  transform: translateX(5px);
+}
+
+.btn-submit:active {
+  transform: translateX(0);
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ***************************************** */
+.acc {
+  max-width: 100rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 6rem;
+}
+
+.bal {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.date-time {
+  color: #666;
+}
+
+.bal__curr {
+  letter-spacing: -4px;
+  font-size: 4.8rem;
+}
+
+/* ************************ */
+.badge {
+  color: #fff;
+  display: inline-block;
+  padding: 0.2rem 1rem;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+}
+
+.badge--deposit {
+  background: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+.badge--withdrawal {
+  background: linear-gradient(to top left, #e52a5a, #ff585f);
+}
+
+/* ************************ */
+.btn {
+  width: 4rem;
+  height: 3rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1.8rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+}
+
+/* ************************ */
+
+.acc-details {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  column-gap: 2rem;
+}
+
+/* ************************ */
+.cards {
+  display: grid;
+  gap: 2rem;
+}
+
+.card {
+  /* width: 38rem; */
+  padding: 3rem 4rem;
+  border-radius: 10px;
+}
+
+.card--transfer {
+  background: linear-gradient(to top left, #ffb003, #ffcb03);
+}
+
+.card--loan {
+  background: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+.card--close {
+  background: linear-gradient(to top left, #e52a5a, #ff585f);
+}
+
+.card .heading-3 {
+  margin-bottom: 2rem;
+}
+
+.card__actions {
+  display: flex;
+  align-items: start;
+  gap: 1rem;
+}
+
+.card__action {
+  display: grid;
+  justify-items: center;
+}
+
+.card__input {
+  width: 12rem;
+  height: 3rem;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.card__action label {
+  font-size: 1.6rem;
+}
+
+/* ***************** */
+.transactions {
+  height: 52.9rem;
+  overflow-y: scroll;
+  border-radius: 10px;
+}
+
+.transactions .transaction:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem;
+  background: #fff;
+}
+
+.transaction__data {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.transaction__date {
+  font-size: 1.6rem;
+}
+
+.transaction__amount {
+  font-weight: 500;
+}
+
+/* *************************** */
+.acc-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.cash-flow {
+  display: flex;
+  gap: 3rem;
+  font-size: 1.5rem;
+}
+
+.cash-flow .amount {
+  font-size: 2.4rem;
+  margin-left: 0.5rem;
+  letter-spacing: -1px;
+}
+
+.in .amount {
+  color: #39b385;
+}
+.out .amount {
+  color: #e52a5a;
+}
+.interest .amount {
+  color: #39b385;
+}
+
+.sort {
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #444;
+  border: none;
+  margin-left: 3rem;
+}
+
+.sort:hover {
+  color: #000;
+}
+
+.timout__time {
+  font-weight: 500;
+}

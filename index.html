@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Money Mingle</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <p class="nav__text">Log in to Get Started</p>
+        <img src="assets/logo.png" class="logo" alt="Logo" />
+        <div class="log-in">
+          <input type="text" class="input user" placeholder="USER" />
+          <input type="text" class="input pin" placeholder="PIN" />
+          <button class="btn-submit"><i class="bi bi-arrow-right"></i></button>
+        </div>
+      </nav>
+    </header>
+
+    <h1 class="heading-1 hidden">Welcome to Money Mingle!</h1>
+
+    <main class="acc">
+      <div class="bal">
+        <div class="bal__text">
+          <h2 class="heading-2">Current Balance</h2>
+          <div class="date-time">
+            As of <span class="date">5/5/2024</span>,
+            <span class="time">12:45 PM</span>
+          </div>
+        </div>
+        <p class="bal__curr">$11,720.00</p>
+      </div>
+
+      <div class="acc-details">
+        <div class="transactions">
+          <div class="transaction">
+            <div class="transaction__data">
+              <div class="badge badge--deposit">
+                <span class="badge__no">1</span>
+                <span class="badge__type">Deposit</span>
+              </div>
+              <div class="transaction__date">12/03/2020</div>
+            </div>
+            <div class="transaction__amount">$ 1300,00</div>
+          </div>
+
+          <div class="transaction">
+            <div class="transaction__data">
+              <div class="badge badge--deposit">
+                <span class="badge__no">1</span>
+                <span class="badge__type">Deposit</span>
+              </div>
+              <div class="transaction__date">12/03/2020</div>
+            </div>
+            <div class="transaction__amount">$ 130,00</div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <div class="card card--transfer">
+            <h3 class="heading-3">Transfer Money</h3>
+            <div class="card__actions">
+              <div class="card__action">
+                <input id="transfer" type="text" class="card__input" />
+                <label for="transfer">Transfer to</label>
+              </div>
+              <div class="card__action">
+                <input id="amount" type="number" class="card__input" />
+                <label for="amount">Amount</label>
+              </div>
+              <button class="btn"><i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+          <div class="card card--loan">
+            <h3 class="heading-3">Request Loan</h3>
+            <div class="card__actions">
+              <div class="card__action">
+                <input id="amount" type="number" class="card__input" />
+                <label for="amount">Amount</label>
+              </div>
+              <button class="btn"><i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+          <div class="card card--close">
+            <h3 class="heading-3">Close Account</h3>
+            <div class="card__actions">
+              <div class="card__action">
+                <input id="transfer" type="text" class="card__input" />
+                <label for="transfer">Confirm User</label>
+              </div>
+              <div class="card__action">
+                <input id="amount" type="number" class="card__input" />
+                <label for="amount">Confirm PIN</label>
+              </div>
+              <button class="btn"><i class="bi bi-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-footer">
+        <div class="cash-flow">
+          <div class="in">IN <span class="amount">$ 2883,29</span></div>
+          <div class="out">OUT <span class="amount">$ 123,23</span></div>
+          <div class="interest">
+            INTEREST <span class="amount">$ 324,1</span>
+          </div>
+          <button class="sort"><i class="bi bi-sort-up"></i> SORT</button>
+        </div>
+        <div class="timout">
+          You will be logged out in <span class="timout__time">05:00</span>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
