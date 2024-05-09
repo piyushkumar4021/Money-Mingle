@@ -26,6 +26,8 @@ const account4 = {
   pin: 4444,
 };
 
+const accounts = [account1, account2, account3, account4];
+
 const containerTransactions = document.querySelector(".transactions");
 
 function displayMovements(transactions) {
@@ -51,3 +53,18 @@ function displayMovements(transactions) {
 }
 
 displayMovements(account1.movements);
+
+// /////////////////////////////
+
+function createUsernames(accs) {
+  accs.forEach((acc) => {
+    acc.userName = acc.owner
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toLowerCase();
+  });
+}
+
+createUsernames(accounts);
+console.log(accounts);
