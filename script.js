@@ -29,6 +29,7 @@ const account4 = {
 const accounts = [account1, account2, account3, account4];
 
 const containerTransactions = document.querySelector(".transactions");
+const balCurr = document.querySelector(".bal__curr");
 
 function displayMovements(transactions) {
   containerTransactions.innerHTML = "";
@@ -54,7 +55,12 @@ function displayMovements(transactions) {
 
 displayMovements(account1.movements);
 
-// /////////////////////////////
+function calcDisplayMovements(movements) {
+  const amt = movements.reduce((sum, mov) => sum + mov);
+  balCurr.textContent = `$${amt}`;
+}
+
+calcDisplayMovements(account1.movements);
 
 function createUsernames(accs) {
   accs.forEach((acc) => {
