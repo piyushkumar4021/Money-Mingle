@@ -31,6 +31,10 @@ const accounts = [account1, account2, account3, account4];
 const containerTransactions = document.querySelector(".transactions");
 const balCurr = document.querySelector(".bal__curr");
 
+const labelSumIN = document.querySelector(".in__amount");
+const labelSumOut = document.querySelector(".out__amount");
+const labelSumInt = document.querySelector(".int__amount");
+
 function displayMovements(transactions) {
   containerTransactions.innerHTML = "";
 
@@ -62,6 +66,26 @@ function calcDisplayMovements(movements) {
 
 calcDisplayMovements(account1.movements);
 
+function calcDisplaySummary(movements) {
+  const sumIn = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov);
+
+  labelSumIN.textContent = `$${sumIn}`;
+
+  const sumOut = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc + mov);
+
+  labelSumOut.textContent = `$${Math.abs(sumOut)}`;
+
+  const interest = sumIn * (1.2 / 100);
+
+  labelSumInt.textContent = `$${interest}`;
+}
+
+calcDisplaySummary(account1.movements);
+
 function createUsernames(accs) {
   accs.forEach((acc) => {
     acc.userName = acc.owner
@@ -73,4 +97,3 @@ function createUsernames(accs) {
 }
 
 createUsernames(accounts);
-console.log(accounts);
