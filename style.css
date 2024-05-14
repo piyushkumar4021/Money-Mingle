@@ -20,6 +20,7 @@ body {
   color: #333;
   font-size: 1.8rem;
   background-color: #eee;
+  padding: 0 2rem 4rem;
 }
 
 .heading-1 {
@@ -136,11 +137,11 @@ body {
 /* ************************ */
 .badge {
   color: #fff;
-  display: inline-block;
   padding: 0.2rem 1rem;
   border-radius: 100px;
   text-transform: uppercase;
   font-size: 1.4rem;
+  letter-spacing: -1px;
 }
 
 .badge--deposit {
@@ -168,12 +169,14 @@ body {
   display: grid;
   grid-template-columns: 1fr max-content;
   column-gap: 2rem;
+  align-items: start;
 }
 
 /* ************************ */
 .cards {
   display: grid;
   gap: 2rem;
+  align-items: start;
 }
 
 .card {
@@ -240,7 +243,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem;
+  padding: 2.5rem;
   background: #fff;
 }
 
@@ -263,6 +266,8 @@ body {
   display: flex;
   justify-content: space-between;
   margin-top: 3rem;
+  column-gap: 5rem;
+  flex-wrap: wrap;
 }
 
 .cash-flow {
@@ -271,34 +276,96 @@ body {
   font-size: 1.5rem;
 }
 
-.cash-flow .amount {
+.in__amount,
+.out__amount,
+.int__amount {
   font-size: 2.4rem;
   margin-left: 0.5rem;
   letter-spacing: -1px;
 }
-
-.in .amount {
+.in__amount {
   color: #39b385;
 }
-.out .amount {
+.out__amount {
   color: #e52a5a;
 }
-.interest .amount {
+.int__amount {
   color: #39b385;
 }
 
-.sort {
+.btn-sort {
   cursor: pointer;
   font-size: 1.8rem;
   color: #444;
   border: none;
-  margin-left: 3rem;
 }
 
-.sort:hover {
+.btn-sort:hover {
   color: #000;
 }
 
 .timout__time {
   font-weight: 500;
+}
+
+/* Responsive */
+/* 900 px */
+@media screen and (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
+
+  .card {
+    padding: 1.5rem 3rem;
+  }
+}
+
+/* 650 px */
+@media screen and (max-width: 41.625em) {
+  .acc-details {
+    grid-template-columns: 1fr;
+    row-gap: 3rem;
+    padding: 0 3rem;
+  }
+
+  .card {
+    text-align: center;
+  }
+
+  .card__actions {
+    justify-content: center;
+  }
+
+  /* header nav */
+  .header {
+    padding: 0;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    row-gap: 2rem;
+    column-gap: 5rem;
+  }
+
+  .nav__text {
+    order: 5;
+    margin: 0 auto;
+  }
+
+  .acc-footer {
+    font-size: 2rem;
+    row-gap: 1rem;
+    justify-content: center;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 28em) {
+  .acc-details {
+    padding: 0 1rem;
+  }
+
+  .log-in .input {
+    width: 10rem;
+  }
 }
