@@ -42,7 +42,11 @@ const labelWelcome = document.querySelector(".welcome");
 
 const inputUser = document.querySelector(".user");
 const inputPin = document.querySelector(".pin");
+const inputTransferAcc = document.querySelector(".transferAcc");
+const inputTransferAmt = document.querySelector(".transferAmt");
+
 const btnLogin = document.querySelector(".log-in");
+const btnTransfer = document.querySelector(".btn-transfer");
 
 function displayMovements(transactions) {
   containerTransactions.innerHTML = "";
@@ -66,9 +70,9 @@ function displayMovements(transactions) {
   });
 }
 
-function calcDisplayBal(movements) {
-  const amt = movements.reduce((sum, mov) => sum + mov);
-  balCurr.textContent = `$${amt}`;
+function calcDisplayBal(acc) {
+  acc.balance = acc.movements.reduce((sum, mov) => sum + mov);
+  balCurr.textContent = `$${acc.balance}`;
 }
 
 function calcDisplaySummary(acc) {
@@ -87,6 +91,17 @@ function calcDisplaySummary(acc) {
   const interest = sumIn * (acc.interestRate / 100);
 
   labelSumInt.textContent = `$${interest}`;
+}
+
+function updateUI(acc) {
+  // Display Transactions
+  displayMovements(acc.movements);
+
+  // Display Bal
+  calcDisplayBal(acc);
+
+  // Display Cashflow
+  calcDisplaySummary(acc);
 }
 
 function createUsernames(accs) {
@@ -119,17 +134,35 @@ btnLogin.addEventListener("click", function (e) {
       currentAccount.owner.split(" ")[0]
     }`;
 
-    // Display Transactions
-    displayMovements(currentAccount.movements);
-
-    // Display Bal
-    calcDisplayBal(currentAccount.movements);
-
-    // Display Cashflow
-    calcDisplaySummary(currentAccount);
+    // Update UI
+    updateUI(currentAccount);
 
     // Clear login fields
     inputUser.value = inputPin.value = "";
     inputPin.blur();
   }
+});
+
+// Transfer Amount Functionality
+btnTransfer.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const transferToAcc = accounts.find(
+    (acc) => acc.userName === inputTransferAcc.value
+  );
+  const amt = Number(inputTransferAmt.value);
+
+  if (
+    transferToAcc &&
+    amt > 0 &&
+    amt < currentAccount.balance &&
+    transferToAcc?.userName !== currentAccount.userName
+  ) {
+    currentAccount.movements.push(-amt);
+    transferToAcc.movements.push(amt);
+
+    updateUI(currentAccount);
+  }
+
+  inputTransferAcc.value = inputTransferAmt.value = "";
 });
