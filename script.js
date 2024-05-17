@@ -42,11 +42,20 @@ const labelWelcome = document.querySelector(".welcome");
 
 const inputUser = document.querySelector(".user");
 const inputPin = document.querySelector(".pin");
-const inputTransferAcc = document.querySelector(".transferAcc");
-const inputTransferAmt = document.querySelector(".transferAmt");
+const inputTransferAcc = document.querySelector("#transferAcc");
+const inputTransferAmt = document.querySelector("#transferAmt");
+const inputCloseAcc = document.querySelector("#closeAcc");
+const inputCloseAccPin = document.querySelector("#closeAccPin");
 
 const btnLogin = document.querySelector(".log-in");
+const btnLogout = document.querySelector(".log-out");
 const btnTransfer = document.querySelector(".btn-transfer");
+const btnCloseAcc = document.querySelector(".btn-closeAcc");
+
+function ToggleLogInOut() {
+  btnLogin.classList.toggle("hidden");
+  btnLogout.classList.toggle("hidden");
+}
 
 function displayMovements(transactions) {
   containerTransactions.innerHTML = "";
@@ -119,6 +128,7 @@ createUsernames(accounts);
 // Events
 let currentAccount;
 
+// Log in event
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -137,10 +147,24 @@ btnLogin.addEventListener("click", function (e) {
     // Update UI
     updateUI(currentAccount);
 
+    // Hide log in and show log out
+    ToggleLogInOut();
+
     // Clear login fields
     inputUser.value = inputPin.value = "";
     inputPin.blur();
   }
+});
+
+// Log out event
+btnLogout.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  ToggleLogInOut();
+
+  app.classList.add("hidden");
+  labelWelcome.classList.remove("hidden");
+  labelGreet.textContent = `Log in to get started`;
 });
 
 // Transfer Amount Functionality
@@ -162,7 +186,28 @@ btnTransfer.addEventListener("click", (e) => {
     transferToAcc.movements.push(amt);
 
     updateUI(currentAccount);
-  }
 
-  inputTransferAcc.value = inputTransferAmt.value = "";
+    inputTransferAcc.value = inputTransferAmt.value = "";
+  }
+});
+
+// Close acc event
+btnCloseAcc.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (
+    inputCloseAcc.value === currentAccount.userName &&
+    Number(inputCloseAccPin.value) === currentAccount.pin
+  ) {
+    accounts.splice(
+      accounts.findIndex((acc) => acc.userName === currentAccount.userName),
+      1
+    );
+
+    app.classList.add("hidden");
+    labelGreet.textContent = `Log in to get started`;
+    labelWelcome.classList.remove("hidden");
+
+    ToggleLogInOut();
+  }
 });
