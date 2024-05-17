@@ -44,17 +44,29 @@ const inputUser = document.querySelector(".user");
 const inputPin = document.querySelector(".pin");
 const inputTransferAcc = document.querySelector("#transferAcc");
 const inputTransferAmt = document.querySelector("#transferAmt");
+const inputLoanAmt = document.querySelector("#loanAmt");
 const inputCloseAcc = document.querySelector("#closeAcc");
 const inputCloseAccPin = document.querySelector("#closeAccPin");
 
 const btnLogin = document.querySelector(".log-in");
 const btnLogout = document.querySelector(".log-out");
 const btnTransfer = document.querySelector(".btn-transfer");
+const btnReqLoan = document.querySelector(".btn-reqLoan");
 const btnCloseAcc = document.querySelector(".btn-closeAcc");
+
+const error = document.querySelector(".error");
 
 function ToggleLogInOut() {
   btnLogin.classList.toggle("hidden");
   btnLogout.classList.toggle("hidden");
+}
+
+function showError() {
+  error.classList.remove("hidden");
+}
+
+function hideError() {
+  error.classList.add("hidden");
 }
 
 function displayMovements(transactions) {
@@ -97,7 +109,7 @@ function calcDisplaySummary(acc) {
 
   labelSumOut.textContent = `$${Math.abs(sumOut)}`;
 
-  const interest = sumIn * (acc.interestRate / 100);
+  const interest = Math.trunc(sumIn * (acc.interestRate / 100));
 
   labelSumInt.textContent = `$${interest}`;
 }
@@ -186,9 +198,30 @@ btnTransfer.addEventListener("click", (e) => {
     transferToAcc.movements.push(amt);
 
     updateUI(currentAccount);
-
+    hideError();
     inputTransferAcc.value = inputTransferAmt.value = "";
+  } else {
+    showError();
   }
+});
+
+// Request Loan
+btnReqLoan.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const amt = Number(inputLoanAmt.value);
+
+  if (amt > 0 && currentAccount.movements.some((mov) => mov >= amt * 0.1)) {
+    currentAccount.movements.push(amt);
+
+    // Update
+    updateUI(currentAccount);
+    hideError();
+  } else {
+    showError();
+  }
+  inputLoanAmt.value = "";
+  inputLoanAmt.blur();
 });
 
 // Close acc event
@@ -209,5 +242,8 @@ btnCloseAcc.addEventListener("click", (e) => {
     labelWelcome.classList.remove("hidden");
 
     ToggleLogInOut();
+    hideError();
+  } else {
+    showError();
   }
 });
