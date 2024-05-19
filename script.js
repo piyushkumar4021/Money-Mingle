@@ -53,6 +53,7 @@ const btnLogout = document.querySelector(".log-out");
 const btnTransfer = document.querySelector(".btn-transfer");
 const btnReqLoan = document.querySelector(".btn-reqLoan");
 const btnCloseAcc = document.querySelector(".btn-closeAcc");
+const btnSort = document.querySelector(".btn-sort");
 
 const error = document.querySelector(".error");
 
@@ -69,8 +70,12 @@ function hideError() {
   error.classList.add("hidden");
 }
 
-function displayMovements(transactions) {
+function displayMovements(transactions, sort = false) {
   containerTransactions.innerHTML = "";
+
+  transactions = sort
+    ? transactions.slice().sort((a, b) => a - b)
+    : transactions;
 
   transactions.forEach((transaction, i) => {
     const type = transaction > 0 ? "deposit" : "withdrawal";
@@ -246,4 +251,14 @@ btnCloseAcc.addEventListener("click", (e) => {
   } else {
     showError();
   }
+});
+
+// Sorting Movements
+
+let sorted = false;
+btnSort.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
