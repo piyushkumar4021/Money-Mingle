@@ -22,22 +22,31 @@
     />
   </head>
   <body>
+    <div class="error hidden">Invalid Operation</div>
     <header class="header">
       <nav class="nav">
-        <p class="nav__text">Log in to Get Started</p>
+        <p class="greet">Log in to get started</p>
         <img src="assets/logo.png" class="logo" alt="Logo" />
-        <div class="log-in">
+        <form class="form-login">
           <input type="text" class="input user" placeholder="USER" />
-          <input type="text" class="input pin" placeholder="PIN" />
-          <button class="btn-submit"><i class="bi bi-arrow-right"></i></button>
-        </div>
+          <input
+            type="text"
+            class="input pin"
+            placeholder="PIN"
+            maxlength="4"
+          />
+          <button class="btn btn-login">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </form>
+        <button class="btn btn-logout hidden">Log Out</button>
       </nav>
     </header>
 
-    <h1 class="heading-1 hidden">Welcome to Money Mingle!</h1>
+    <h1 class="heading-1 welcome">Welcome to Money Mingle!</h1>
 
-    <main class="acc">
-      <div class="bal">
+    <main class="acc hidden">
+      <div class="acc__bal">
         <div class="bal__text">
           <h2 class="heading-2">Current Balance</h2>
           <div class="date-time">
@@ -48,7 +57,7 @@
         <p class="bal__curr">$0000</p>
       </div>
 
-      <div class="acc-details">
+      <div class="acc__details">
         <div class="transactions">
           <div class="transaction">
             <div class="transaction__data">
@@ -76,46 +85,52 @@
         <div class="cards">
           <div class="card card--transfer">
             <h3 class="heading-3">Transfer Money</h3>
-            <div class="card__actions">
+            <form class="card__actions">
               <div class="card__action">
-                <input id="transfer" type="text" class="card__input" />
-                <label for="transfer">Transfer to</label>
+                <input id="transferAcc" type="text" class="card__input" />
+                <label for="transferAcc">Transfer to</label>
               </div>
               <div class="card__action">
-                <input id="amount" type="number" class="card__input" />
-                <label for="amount">Amount</label>
+                <input id="transferAmt" type="number" class="card__input" />
+                <label for="transferAmt">Amount</label>
               </div>
-              <button class="btn"><i class="bi bi-arrow-right"></i></button>
-            </div>
+              <button class="btn btn-transfer">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </form>
           </div>
           <div class="card card--loan">
             <h3 class="heading-3">Request Loan</h3>
-            <div class="card__actions">
+            <form class="card__actions">
               <div class="card__action">
-                <input id="amount" type="number" class="card__input" />
-                <label for="amount">Amount</label>
+                <input id="loanAmt" type="number" class="card__input" />
+                <label for="loanAmt">Amount</label>
               </div>
-              <button class="btn"><i class="bi bi-arrow-right"></i></button>
-            </div>
+              <button class="btn btn-reqLoan">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </form>
           </div>
           <div class="card card--close">
             <h3 class="heading-3">Close Account</h3>
-            <div class="card__actions">
+            <form class="card__actions">
               <div class="card__action">
-                <input id="transfer" type="text" class="card__input" />
-                <label for="transfer">Confirm User</label>
+                <input id="closeAcc" type="text" class="card__input" />
+                <label for="closeAcc">Confirm User</label>
               </div>
               <div class="card__action">
-                <input id="amount" type="number" class="card__input" />
-                <label for="amount">Confirm PIN</label>
+                <input id="closeAccPin" type="number" class="card__input" />
+                <label for="closeAccPin">Confirm PIN</label>
               </div>
-              <button class="btn"><i class="bi bi-arrow-right"></i></button>
-            </div>
+              <button class="btn btn-closeAcc">
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </form>
           </div>
         </div>
       </div>
 
-      <div class="acc-footer">
+      <div class="acc__footer">
         <div class="cash-flow">
           <div class="in">IN <span class="in__amount">$0000</span></div>
           <div class="out">OUT <span class="out__amount">$0000</span></div>

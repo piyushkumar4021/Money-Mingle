@@ -33,6 +33,8 @@ const balCurr = document.querySelector(".bal__curr");
 
 const app = document.querySelector(".acc");
 
+const formLogin = document.querySelector(".form-login");
+
 const labelSumIN = document.querySelector(".in__amount");
 const labelSumOut = document.querySelector(".out__amount");
 const labelSumInt = document.querySelector(".int__amount");
@@ -48,8 +50,8 @@ const inputLoanAmt = document.querySelector("#loanAmt");
 const inputCloseAcc = document.querySelector("#closeAcc");
 const inputCloseAccPin = document.querySelector("#closeAccPin");
 
-const btnLogin = document.querySelector(".log-in");
-const btnLogout = document.querySelector(".log-out");
+const btnLogin = document.querySelector(".btn-login");
+const btnLogout = document.querySelector(".btn-logout");
 const btnTransfer = document.querySelector(".btn-transfer");
 const btnReqLoan = document.querySelector(".btn-reqLoan");
 const btnCloseAcc = document.querySelector(".btn-closeAcc");
@@ -58,7 +60,7 @@ const btnSort = document.querySelector(".btn-sort");
 const error = document.querySelector(".error");
 
 function ToggleLogInOut() {
-  btnLogin.classList.toggle("hidden");
+  formLogin.classList.toggle("hidden");
   btnLogout.classList.toggle("hidden");
 }
 
