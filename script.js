@@ -1,8 +1,21 @@
 const account1 = {
   owner: "Jonas Schmedtmann",
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+    "2020-05-27T17:01:17.194Z",
+    "2024-04-31T23:36:17.929Z",
+    "2024-05-01T10:51:36.790Z",
+  ],
+  currency: "EUR",
+  locale: "pt-PT", // de-DE
 };
 
 const account2 = {
@@ -10,26 +23,25 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-05T16:33:06.386Z",
+    "2020-04-10T14:43:26.374Z",
+    "2020-06-25T18:49:59.371Z",
+    "2020-07-26T12:01:20.894Z",
+  ],
+  currency: "USD",
+  locale: "en-US",
 };
 
-const account3 = {
-  owner: "Steven Thomas Williams",
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 3333,
-};
-
-const account4 = {
-  owner: "Sarah Smith",
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 4444,
-};
-
-const accounts = [account1, account2, account3, account4];
+const accounts = [account1, account2];
 
 const containerTransactions = document.querySelector(".transactions");
-const balCurr = document.querySelector(".bal__curr");
+const labelBalance = document.querySelector(".bal__curr");
 
 const app = document.querySelector(".acc");
 
@@ -38,6 +50,8 @@ const formLogin = document.querySelector(".form-login");
 const labelSumIN = document.querySelector(".in__amount");
 const labelSumOut = document.querySelector(".out__amount");
 const labelSumInt = document.querySelector(".int__amount");
+
+const labelLoginTime = document.querySelector(".login-time");
 
 const labelGreet = document.querySelector(".greet");
 const labelWelcome = document.querySelector(".welcome");
@@ -72,15 +86,19 @@ function hideError() {
   error.classList.add("hidden");
 }
 
-function displayMovements(transactions, sort = false) {
+function displayMovements(acc, sort = false) {
   containerTransactions.innerHTML = "";
 
-  transactions = sort
-    ? transactions.slice().sort((a, b) => a - b)
-    : transactions;
+  const movements = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
 
-  transactions.forEach((transaction, i) => {
-    const type = transaction > 0 ? "deposit" : "withdrawal";
+  movements.forEach((mov, i) => {
+    const type = mov > 0 ? "deposit" : "withdrawal";
+
+    const displayDate = new Intl.DateTimeFormat(acc.locale).format(
+      new Date(acc.movementsDates[i])
+    );
 
     const html = `
     <div class="transaction">
@@ -89,9 +107,9 @@ function displayMovements(transactions, sort = false) {
                 <span class="badge__no">${i + 1}</span>
                 <span class="badge__type">${type}</span>
             </div>
-            <div class="transaction__date">12/03/2020</div>
+            <div class="transaction__date">${displayDate}</div>
         </div>
-        <div class="transaction__amount">$ ${transaction}</div>
+        <div class="transaction__amount">$ ${mov.toFixed(2)}</div>
     </div>`;
 
     containerTransactions.insertAdjacentHTML("afterbegin", html);
@@ -100,30 +118,30 @@ function displayMovements(transactions, sort = false) {
 
 function calcDisplayBal(acc) {
   acc.balance = acc.movements.reduce((sum, mov) => sum + mov);
-  balCurr.textContent = `$${acc.balance}`;
+  labelBalance.textContent = `$${acc.balance.toFixed(2)}`;
 }
 
 function calcDisplaySummary(acc) {
   const sumIn = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov);
-
-  labelSumIN.textContent = `$${sumIn}`;
+  labelSumIN.textContent = `$${sumIn.toFixed(2)}`;
 
   const sumOut = acc.movements
     .filter((mov) => mov < 0)
-    .reduce((acc, mov) => acc + mov);
+    .reduce((acc, mov) => acc + mov)
+    .toFixed(2);
 
-  labelSumOut.textContent = `$${Math.abs(sumOut)}`;
+  labelSumOut.textContent = `$${Math.abs(sumOut).toFixed(2)}`;
 
-  const interest = Math.trunc(sumIn * (acc.interestRate / 100));
+  const interest = (sumIn * (acc.interestRate / 100)).toFixed(2);
 
   labelSumInt.textContent = `$${interest}`;
 }
 
 function updateUI(acc) {
   // Display Transactions
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   // Display Bal
   calcDisplayBal(acc);
@@ -153,6 +171,19 @@ btnLogin.addEventListener("click", function (e) {
 
   // Finding A/c Details
   currentAccount = accounts.find((acc) => acc.userName === inputUser.value);
+
+  let dateItems = {
+    date: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+
+  labelLoginTime.textContent = `As of ${new Intl.DateTimeFormat(
+    currentAccount.locale,
+    dateItems
+  ).format(new Date())}`;
 
   if (currentAccount?.pin === Number(inputPin.value)) {
     labelWelcome.classList.add("hidden");
@@ -204,6 +235,9 @@ btnTransfer.addEventListener("click", (e) => {
     currentAccount.movements.push(-amt);
     transferToAcc.movements.push(amt);
 
+    currentAccount.movementsDates.push(new Date().toISOString());
+    transferToAcc.movementsDates.push(new Date().toISOString());
+
     updateUI(currentAccount);
     hideError();
     inputTransferAcc.value = inputTransferAmt.value = "";
@@ -216,10 +250,11 @@ btnTransfer.addEventListener("click", (e) => {
 btnReqLoan.addEventListener("click", (e) => {
   e.preventDefault();
 
-  const amt = Number(inputLoanAmt.value);
+  const amt = Math.trunc(Number(inputLoanAmt.value));
 
   if (amt > 0 && currentAccount.movements.some((mov) => mov >= amt * 0.1)) {
     currentAccount.movements.push(amt);
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update
     updateUI(currentAccount);
@@ -261,6 +296,6 @@ let sorted = false;
 btnSort.addEventListener("click", (e) => {
   e.preventDefault();
 
-  displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
+  displayMovements(currentAccount, sorted);
 });
