@@ -28,7 +28,7 @@ body {
   font-family: "Ubuntu Sans", sans-serif;
   color: #333;
   font-size: 1.8rem;
-  background-color: #eee;
+  background-color: #f3f3f3;
   padding-bottom: 3rem;
 }
 
@@ -346,7 +346,7 @@ body {
   color: #000;
 }
 
-.timout__time {
+.timeout__time {
   font-weight: 500;
 }
 

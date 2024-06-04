@@ -52,6 +52,7 @@ const labelSumOut = document.querySelector(".out__amount");
 const labelSumInt = document.querySelector(".int__amount");
 
 const labelLoginTime = document.querySelector(".login-time");
+const labelLogoutTime = document.querySelector(".timeout__time");
 
 const labelGreet = document.querySelector(".greet");
 const labelWelcome = document.querySelector(".welcome");
@@ -76,6 +77,12 @@ const error = document.querySelector(".error");
 function ToggleLogInOut() {
   formLogin.classList.toggle("hidden");
   btnLogout.classList.toggle("hidden");
+}
+
+function logOut() {
+  app.classList.add("hidden");
+  labelWelcome.classList.remove("hidden");
+  labelGreet.textContent = `Log in to get started`;
 }
 
 function showError() {
@@ -162,8 +169,33 @@ function createUsernames(accs) {
 
 createUsernames(accounts);
 
+function logoutTimer() {
+  let timer = 300;
+
+  function tick() {
+    let min = String(Math.trunc(timer / 60)).padStart(2, 0);
+    let sec = String(timer % 60).padStart(2, 0);
+
+    labelLogoutTime.textContent = `${min}:${sec}`;
+
+    if (!timer) {
+      ToggleLogInOut();
+      logOut();
+      clearInterval(updateTimer);
+    }
+
+    timer--;
+  }
+
+  tick();
+
+  const updateTimer = setInterval(tick, 1000);
+
+  return updateTimer;
+}
+
 // Events
-let currentAccount;
+let currentAccount, timer;
 
 // Log in event
 btnLogin.addEventListener("click", function (e) {
@@ -194,6 +226,9 @@ btnLogin.addEventListener("click", function (e) {
       currentAccount.owner.split(" ")[0]
     }`;
 
+    if (timer) clearInterval(timer);
+    timer = logoutTimer();
+
     // Update UI
     updateUI(currentAccount);
 
@@ -212,9 +247,7 @@ btnLogout.addEventListener("click", (e) => {
 
   ToggleLogInOut();
 
-  app.classList.add("hidden");
-  labelWelcome.classList.remove("hidden");
-  labelGreet.textContent = `Log in to get started`;
+  logOut();
 });
 
 // Transfer Amount Functionality
@@ -257,8 +290,10 @@ btnReqLoan.addEventListener("click", (e) => {
     currentAccount.movementsDates.push(new Date().toISOString());
 
     // Update
-    updateUI(currentAccount);
-    hideError();
+    setTimeout(() => {
+      updateUI(currentAccount);
+      hideError();
+    }, 2500);
   } else {
     showError();
   }
@@ -291,7 +326,6 @@ btnCloseAcc.addEventListener("click", (e) => {
 });
 
 // Sorting Movements
-
 let sorted = false;
 btnSort.addEventListener("click", (e) => {
   e.preventDefault();
